@@ -1,0 +1,109 @@
+book-ms-spring:
+    - dockers: 
+        moneertv/moneer:book-ms-spring-alpine
+        moneertv/moneer:book-ms-spring
+    - tech: java, spring
+    - port: 8080
+    - methods:
+        get: /books
+        post: /add
+    - description: a simple api from an array list
+
+binded-book:
+    - dockers:
+        moneertv/moneer:binded-book-alpine
+        moneertv/moneer:binded-book-api
+    - tech: python, fastapi, uvicorn
+    - port: 8000
+    - methods:
+        get: /
+        get a: /{SN}
+        post: /add
+        delete: /delete/{SN}
+    - description: a simple api from an array list
+
+book-ms-node:
+    - dockers:
+        moneertv/moneer:book-ms-node
+    - tech: nodejs, express
+    - port: 8081
+    - methods:
+        get: /authors
+        post: /add        
+    - description: a simple api from a text file
+
+book-api-mongo:
+    - dockers:
+        moneertv/moneer:book-api-mongo
+            * not clean, and no swagger
+        moneertv/moneer:book-ms
+            * structred and well written, with a swagger documentation as well
+    - tech: python, fastapi, uvicorn
+    - port: 8000
+    - methods:
+        get: /
+        get a: /{ID}
+        post: /
+        delete: /{ID}  
+        put: /{ID}           
+    - description: api from a mongo db.
+    - env:
+        USER_NAME
+        USER_PWD
+        MONGODB_URL
+        SWAGGER_IP
+
+api-gateway:
+    - dockers:
+        moneertv/moneer:api-gateway-port
+    - tech: python, fastapi, uvicorn
+    - port: 8000
+    - methods:
+        get: /gateway/books/
+        get a: /gateway/books/{id}
+        post: /gateway/books/
+        delete: /gateway/books/{id}
+        put: /gateway/books/{id}    
+    - description: an api gateway, currently it can be connected with one API with an env var: BOOK_URL
+    - env:
+        BOOK_URL
+
+api-from-env:
+    - dockers:
+        moneertv/moneer:api-from-env
+    - tech: python, fastapi, uvicorn
+    - port: 8000
+    - methods:
+        get: /authors
+        post: /add
+    - description: a simple api from an env variable
+    - env: [it will be set in runtime, no need to include it]
+        AUTHORS
+
+api-from-config:
+    - dockers:
+        moneertv/moneer:api-from-config
+    - tech: python, fastapi, uvicorn
+    - port: 8000
+    - methods:
+        get: /config
+        post: /add/{configName}
+    - description: a simple api from a config file, its like a semulation for a WLC configuration
+
+book-ms-soap:
+    - dockers:
+        moneertv/moneer:book-ms-soap
+    - tech: java, spring, jax-ws, xjc, xsd, wsdl
+    - port: 8080
+    - methods:
+        getBookRequest
+        getBookResponse
+    - description: a simple soap api, top to down approch (wsdl first), it respond with the book information, the request will go to the getBookRequest.name(SN) method.
+
+from-bucket:
+    - dockers:
+        moneertv/moneer:from-bucket
+    - tech: python, fastapi, uvicorn
+    - port: 8000
+    - methods:
+        get: /message
